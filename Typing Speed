@@ -1,0 +1,38 @@
+from time import time  # Importing the 'time' function from the 'time' module to measure time intervals
+import random as r     # Importing the 'random' module as 'r' to use for selecting a random sentence
+
+def mistake(partest, usertest):  # Defining a function to calculate the number of mistakes
+    error = 0  # Initializing a variable to count errors
+    for i in range(len(partest)):  # Looping through each character in the reference text
+        try:
+            if partest[i] != usertest[i]:  # Comparing each character of the reference and user input texts
+                error += 1  # Incrementing the error count if characters do not match
+        except:
+            error += 1  # Incrementing the error count if there's an indexing issue (e.g., user input is shorter)
+    return error  # Returning the total number of errors
+
+def speed_time(time_s, time_e, userinput):  # Defining a function to calculate typing speed in WPM
+    time_delay = time_e - time_s  # Calculating the time delay between start and end times
+    time_R = round(time_delay / 60, 2)  # Converting the time delay to minutes and rounding to 2 decimal places
+    word_count = len(userinput.split())  # Counting the number of words in the user input
+    speed = word_count / time_R  # Calculating speed in words per minute
+    return round(speed)  # Returning the rounded speed
+
+if __name__ == "__main__":  # Ensuring this block runs only if the script is executed directly
+    test = [  # Defining a list of test sentences
+        "Typing is a skill that improves with practice and patience. The more you type, the faster and more accurate you become.",
+        "My name is Yash. I enjoy coding and learning new technologies.",
+        "Welcome to the typing speed test. This test will help you improve your typing skills and measure your typing speed."
+    ]
+
+    test1 = r.choice(test)  # Selecting a random sentence from the list
+    print("***** Typing Speed Test *****")  # Printing a title for the test
+    print(test1)  # Displaying the selected test sentence
+    print()  # Printing a blank line for spacing
+
+    time_1 = time()  # Recording the start time
+    testinput = input("Enter: ")  # Prompting the user to type the test sentence
+    time_2 = time()  # Recording the end time
+
+    print('Speed:', speed_time(time_1, time_2, testinput), "words/min")  # Calculating and displaying the typing speed in WPM
+    print("Errors:", mistake(test1, testinput))  # Calculating and displaying the number of errors 
